@@ -22,6 +22,7 @@ public class Menu {
             System.out.println("5. Listar tarefas por prioridade.");
             System.out.println("6. Listar tarefas por categoria.");
             System.out.println("7. Filtrar tarefas por status.");
+            System.out.println("8. Excluir tarefa.");
             System.out.println("0. Sair.");
             System.out.print(Estilo.BOLD + "Escolha uma opção: " + Cores.RESET);
 
@@ -36,6 +37,7 @@ public class Menu {
                 case 5 -> listarPorPrioridade();
                 case 6 -> listarPorCategoria();
                 case 7 -> filtrarPorStatus();
+                case 8 -> excluirTarefa();
                 case 0 -> System.out.println(Cores.YELLOW + "Saindo..." + Cores.RESET);
                 default -> System.out.println(Cores.RED + "Opção inválida!" + Cores.RESET);
             }
@@ -200,6 +202,25 @@ public class Menu {
             System.out.println(Cores.RED + "Nenhuma tarefa encontrada com esse status." + Cores.RESET);
         } else {
             System.out.println(Estilo.BOLD + "Total encontrado: " + contador + Cores.RESET);
+        }
+    }
+
+    private void excluirTarefa() {
+        if (listaTarefas.isEmpty()) {
+            System.out.println(Cores.YELLOW + "Lista vazia, não há o que excluir." + Cores.RESET);
+            return;
+        }
+        listarTarefas();
+        System.out.print(Estilo.BOLD + "\nDigite o número da tarefa que deseja excluir: " + Cores.RESET);
+        int num = keyboard.nextInt();
+        keyboard.nextLine();
+
+        int indice = num - 1;
+        if (indice >= 0 && indice < listaTarefas.size()) {
+            Tarefa removida = listaTarefas.remove(indice);
+            System.out.println(Cores.RED + "Tarefa '" + removida.getNome() + "' excluída com sucesso!" + Cores.RESET);
+        } else {
+            System.out.println(Cores.RED + "Índice inválido." + Cores.RESET);
         }
     }
 
