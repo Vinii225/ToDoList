@@ -14,14 +14,14 @@ public class Menu {
         while (opcao != 0) {
             System.out.println("\nToDo List");
             System.out.println("1. Criar tarefa.");
-            System.out.println("2. Editar progressao da tarefa.");
+            System.out.println("2. Editar APENAS progressão da tarefa.");
             System.out.println("3. Editar tarefa.");
             System.out.println("4. Listar tarefas.");
             System.out.println("5. Listar tarefas por prioridade.");
             System.out.println("6. Listar tarefas por categoria.");
             System.out.println("7. Filtrar tarefas por status.");
             System.out.println("0. Sair.");
-            System.out.print("Escolha uma opcao: ");
+            System.out.print("Escolha uma opção: ");
 
             opcao = keyboard.nextInt();
             keyboard.nextLine();
@@ -35,7 +35,7 @@ public class Menu {
                 case 6 -> listarPorCategoria();
                 case 7 -> filtrarPorStatus();
                 case 0 -> System.out.println("Saindo...");
-                default -> System.out.println("Opcao invalida!");
+                default -> System.out.println("Opção inválida!");
             }
         }
     }
@@ -45,14 +45,14 @@ public class Menu {
         System.out.print("Nome: ");
         String nome = keyboard.nextLine();
 
-        System.out.print("Descricao: ");
+        System.out.print("Descrição: ");
         String descricao = keyboard.nextLine();
 
-        System.out.print("Data de Termino (AAAA-MM-DD): ");
+        System.out.print("Data de Término (AAAA-MM-DD): ");
         String dataString = keyboard.nextLine();
         LocalDate data = LocalDate.parse(dataString);
 
-        System.out.print("Nivel de Prioridade (1 a 5): ");
+        System.out.print("Nível de Prioridade (1 a 5): ");
         int nivelP = keyboard.nextInt();
         keyboard.nextLine();
 
@@ -66,11 +66,11 @@ public class Menu {
 
     private void atualizarStatus() {
         if (listaTarefas.isEmpty()) {
-            System.out.println("Lista vazia, nao ha tarefas para atualizar.");
+            System.out.println("Lista vazia, não há tarefas para atualizar.");
             return;
         }
         listarTarefas();
-        System.out.print("\nDigite o numero da tarefa para mudar o status: ");
+        System.out.print("\nDigite o número da tarefa para mudar o status: ");
         int num = keyboard.nextInt();
         keyboard.nextLine();
 
@@ -84,7 +84,7 @@ public class Menu {
             t.setStatus(novoStatus);
             System.out.println("Status da tarefa " + t.getNome() + " atualizado para: " + novoStatus);
         } else {
-            System.out.println("Esse numero de tarefa nao existe na lista.");
+            System.out.println("Esse número de tarefa não existe na lista.");
         }
     }
 
@@ -95,7 +95,7 @@ public class Menu {
         }
         listarTarefas();
 
-        System.out.print("\nDigite o numero da tarefa que deseja editar: ");
+        System.out.print("\nDigite o número da tarefa que deseja editar: ");
         int num = keyboard.nextInt();
         keyboard.nextLine();
 
@@ -106,14 +106,14 @@ public class Menu {
             System.out.print("Novo Nome: ");
             String nome = keyboard.nextLine();
 
-            System.out.print("Nova Descricao: ");
+            System.out.print("Nova Descrição: ");
             String descricao = keyboard.nextLine();
 
             System.out.print("Nova Data (AAAA-MM-DD): ");
             String dataString = keyboard.nextLine();
             LocalDate data = LocalDate.parse(dataString);
 
-            System.out.print("Novo Nivel de Prioridade (1-5): ");
+            System.out.print("Novo Nível de Prioridade (1-5): ");
             int nivelP = keyboard.nextInt();
             keyboard.nextLine();
 
@@ -126,7 +126,7 @@ public class Menu {
             listaTarefas.set(indice, tarefaEditada);
             System.out.println("Tarefa atualizada.");
         } else {
-            System.out.println("Indice invalido.");
+            System.out.println("Índice inválido.");
         }
     }
 
@@ -135,10 +135,19 @@ public class Menu {
         if (listaTarefas.isEmpty()) {
             System.out.println("Lista vazia.");
         } else {
+            int todo = 0, doing = 0, done = 0;
+
             for (int i = 0; i < listaTarefas.size(); i++) {
-                System.out.println("(" + (i + 1) + ") " + listaTarefas.get(i));
+                Tarefa t = listaTarefas.get(i);
+                System.out.println("(" + (i + 1) + ") " + t);
+
+                if (t.getStatus().equalsIgnoreCase("To Do")) todo++;
+                else if (t.getStatus().equalsIgnoreCase("Doing")) doing++;
+                else if (t.getStatus().equalsIgnoreCase("Done")) done++;
             }
+
             System.out.println("\nTotal de tarefas: " + listaTarefas.size());
+            System.out.println("To Do: " + todo + " | Doing: " + doing + " | Done: " + done);
         }
     }
 
@@ -167,18 +176,20 @@ public class Menu {
         }
 
         String busca = lerStatusValido();
-        boolean encontrou = false;
+        int contador = 0;
 
-        System.out.println("\nExibindo tarefas com status: [" + busca + "]");
+        System.out.println("\nExibindo tarefas com status: (" + busca + ")");
         for (int i = 0; i < listaTarefas.size(); i++) {
             Tarefa t = listaTarefas.get(i);
             if (t.getStatus().equalsIgnoreCase(busca)) {
                 System.out.println("(" + (i + 1) + ") " + t);
-                encontrou = true;
+                contador++;
             }
         }
-        if (!encontrou) {
+        if (contador == 0) {
             System.out.println("Nenhuma tarefa encontrada com esse status.");
+        } else {
+            System.out.println("Total encontrado: " + contador);
         }
     }
 
@@ -193,7 +204,7 @@ public class Menu {
                 }
                 return entrada.substring(0, 1).toUpperCase() + entrada.substring(1).toLowerCase();
             }
-            System.out.println("Status invalido! Digite apenas To Do, Doing ou Done.");
+            System.out.println("Status inválido, digite apenas To Do, Doing ou Done.");
         }
     }
 }
