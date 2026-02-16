@@ -16,6 +16,7 @@ public class Menu {
             System.out.println("1. Criar tarefa.");
             System.out.println("2. Listar tarefas.");
             System.out.println("3. Listar tarefas por prioridade.");
+            System.out.println("4. Listar tarefas por categoria.");
             System.out.println("0. Sair.");
             System.out.print("Escolha uma opção: ");
 
@@ -26,6 +27,7 @@ public class Menu {
                 case 1 -> criarTarefa();
                 case 2 -> listarTarefas();
                 case 3 -> listarPorPrioridade();
+                case 4 -> listarPorCategoria();
                 case 0 -> System.out.println("Saindo... Até mais!");
                 default -> System.out.println("Opção inválida!");
             }
@@ -51,7 +53,7 @@ public class Menu {
         System.out.print("Categoria: ");
         String categoria = keyboard.nextLine();
 
-        Tarefa novaTarefa = new Tarefa(nome, descricao, data, nivelP, categoria, "ToDo");
+        Tarefa novaTarefa = new Tarefa(nome, descricao, data, nivelP, categoria, "To Do");
         listaTarefas.add(novaTarefa);
         System.out.println("Tarefa adicionada!");
     }
@@ -73,7 +75,15 @@ public class Menu {
             System.out.println("Lista vazia, nada para ordenar.");
         } else {
             listaTarefas.sort((t1, t2) -> Integer.compare(t2.getNivelPrioridade(), t1.getNivelPrioridade()));
+            listarTarefas();
+        }
+    }
 
+    private void listarPorCategoria() {
+        if (listaTarefas.isEmpty()) {
+            System.out.println("Lista vazia.");
+        } else {
+            listaTarefas.sort((t1, t2) -> t1.getCategoria().compareToIgnoreCase(t2.getCategoria()));
             listarTarefas();
         }
     }
