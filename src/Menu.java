@@ -62,7 +62,7 @@ public class Menu {
             System.out.println("Lista vazia.");
         } else {
             for (int i = 0; i < listaTarefas.size(); i++) {
-                System.out.println("("+ i+1 + ") " + listaTarefas.get(i));
+                System.out.println("("+ (i+1) + ") " + listaTarefas.get(i));
             }
             System.out.println("\nTotal de tarefas: " + listaTarefas.size());
         }
