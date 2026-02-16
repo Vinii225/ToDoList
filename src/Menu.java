@@ -19,6 +19,7 @@ public class Menu {
             System.out.println("4. Listar tarefas.");
             System.out.println("5. Listar tarefas por prioridade.");
             System.out.println("6. Listar tarefas por categoria.");
+            System.out.println("7. Filtrar tarefas por status.");
             System.out.println("0. Sair.");
             System.out.print("Escolha uma opcao: ");
 
@@ -32,6 +33,7 @@ public class Menu {
                 case 4 -> listarTarefas();
                 case 5 -> listarPorPrioridade();
                 case 6 -> listarPorCategoria();
+                case 7 -> filtrarPorStatus();
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opcao invalida!");
             }
@@ -155,6 +157,28 @@ public class Menu {
         } else {
             listaTarefas.sort((t1, t2) -> t1.getCategoria().compareToIgnoreCase(t2.getCategoria()));
             listarTarefas();
+        }
+    }
+
+    private void filtrarPorStatus() {
+        if (listaTarefas.isEmpty()) {
+            System.out.println("Lista vazia, nada para filtrar.");
+            return;
+        }
+
+        String busca = lerStatusValido();
+        boolean encontrou = false;
+
+        System.out.println("\nExibindo tarefas com status: [" + busca + "]");
+        for (int i = 0; i < listaTarefas.size(); i++) {
+            Tarefa t = listaTarefas.get(i);
+            if (t.getStatus().equalsIgnoreCase(busca)) {
+                System.out.println("(" + (i + 1) + ") " + t);
+                encontrou = true;
+            }
+        }
+        if (!encontrou) {
+            System.out.println("Nenhuma tarefa encontrada com esse status.");
         }
     }
 
