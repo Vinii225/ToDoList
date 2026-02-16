@@ -13,9 +13,10 @@ public class Menu {
 
         while (opcao != 0) {
             System.out.println("\nToDo List");
-            System.out.println("1. Criar tarefa");
-            System.out.println("2. Listar tarefas");
-            System.out.println("0. Sair");
+            System.out.println("1. Criar tarefa.");
+            System.out.println("2. Listar tarefas.");
+            System.out.println("3. Listar tarefas por prioridade.");
+            System.out.println("0. Sair.");
             System.out.print("Escolha uma opção: ");
 
             opcao = keyboard.nextInt();
@@ -24,6 +25,7 @@ public class Menu {
             switch (opcao) {
                 case 1 -> criarTarefa();
                 case 2 -> listarTarefas();
+                case 3 -> listarPorPrioridade();
                 case 0 -> System.out.println("Saindo... Até mais!");
                 default -> System.out.println("Opção inválida!");
             }
@@ -63,6 +65,16 @@ public class Menu {
                 System.out.println("("+ i+1 + ") " + listaTarefas.get(i));
             }
             System.out.println("\nTotal de tarefas: " + listaTarefas.size());
+        }
+    }
+
+    private void listarPorPrioridade() {
+        if (listaTarefas.isEmpty()) {
+            System.out.println("Lista vazia, nada para ordenar.");
+        } else {
+            listaTarefas.sort((t1, t2) -> Integer.compare(t2.getNivelPrioridade(), t1.getNivelPrioridade()));
+
+            listarTarefas();
         }
     }
 }
