@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List - Frontend</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>ToDo List</h1>
+
+    <form id="todo-form">
+        <input type="hidden" id="edit-index" value="-1">
+
+        <label for="nome">Nome da Tarefa:</label>
+        <input type="text" id="nome" placeholder="Ex: Estudar JS" required>
+
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" placeholder="Detalhes da tarefa..."></textarea>
+
+        <label for="data">Data de Término:</label>
+        <input type="date" id="data" required>
+
+        <div class="row">
+            <div class="col">
+                <label for="prioridade">Prioridade:</label>
+                <select id="prioridade">
+                    <option value="1">1 (Baixa)</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 (Alta)</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="categoria">Categoria:</label>
+                <input type="text" id="categoria" placeholder="Ex: IFPB">
+            </div>
+        </div>
+
+        <button type="submit" id="btn-salvar">Salvar Tarefa</button>
+    </form>
+
+    <hr>
+
+    <section id="lista-container">
+        <h2>Minhas Tarefas</h2>
+        <div id="lista-tarefas"></div>
+    </section>
+</div>
+</body>
+</html>
